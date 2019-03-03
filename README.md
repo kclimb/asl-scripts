@@ -6,11 +6,10 @@ These are the Autosplitters currently available in this repo.
 
 ## Stay Tuned for Danger
 
-2/26/2019:
-Currently undergoing approval to be available through LiveSplit.
+3/2/2019:
+Available in LiveSplit.
 
-Only starts timer and splits at end of game at this time. Actively working on
-adding other splits.
+Planned development done. No-Save route is fully tested, Any% and Glitchless are not, but are probably fine.
 
 ## Treasure in the Royal Tower
 
@@ -31,14 +30,14 @@ Development in progress, nothing usable at this time.
 2/26/2019:
 Available in LiveSplit.
 
-Development complete. Will only add splits on request, time permitting.
+Development complete. Message me about bugs/requests.
 
 ## Curse of Blackmoor Manor
 
 2/26/2019:
 Available in LiveSplit.
 
-Development complete. Will only add splits on request, time permitting.
+Development complete. Message me about bugs/requests.
 
 # Planned Splitters
 These are the autosplitters I plan to make but have not worked on yet:
