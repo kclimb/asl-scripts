@@ -23,42 +23,42 @@ startup
 	vars.DebugOutput = DebugOutput;
 
 	// Autosplitter settings
-	settings.Add("meetAbby",true,"Finish Meeting Abby");
+	settings.Add("meetAbby",false,"Finish Meeting Abby");
 	settings.Add("meetRose",false,"Finish Meeting Rose");
-	settings.Add("tilesStart",false,"Start Tile Puzzle");
+	settings.Add("tilesStart",true,"Start Tile Puzzle");
 	settings.Add("tilesEnd",false,"Back Away From Tile Puzzle (including if you finish it)");
 	settings.Add("roseTiles",true,"Tell Rose Tile Puzzle Is Done");
 	settings.Add("meetCharlie",false,"Finish Meeting Charlie");
 	settings.Add("meetLouis",true,"Finish Meeting Louis");
 	settings.Add("tile1",false,"Find First Fireplace Tile");
-	settings.Add("scraperGet",true,"Find Paint Scraper");
-	settings.Add("openRegister",false,"Open Cash Register");
+	settings.Add("scraperGet",false,"Find Paint Scraper");
+	settings.Add("openRegister",true,"Open Cash Register");
 	settings.Add("unlockAttic",false,"Unlock Attic");
-	settings.Add("crowbarGet",true,"Find Crowbar");
+	settings.Add("crowbarGet",false,"Find Crowbar");
 	settings.Add("ironGet",false,"Find Iron");
 	settings.Add("tile2",false,"Find Second Fireplace Tile");
 	settings.Add("leaveAttic",true,"Pry Open Attic Door (to leave)");
 	settings.Add("dumbwaiter",false,"Activate Dumbwaiter (using iron)");
-	settings.Add("tile3",true,"Find Third Fireplace tile");
+	settings.Add("tile3",false,"Find Third Fireplace tile");
 	settings.Add("diego",true,"Solve Diego Puzzle");
 	settings.Add("pyramidKey",false,"Get Chinese Symbol Key");
 	settings.Add("fireplace",false,"Put Tiles On Fireplace");
 	settings.Add("kronk",false,"Pull The Fireplace Lever");
 	settings.Add("spy",true,"Spy On Louis");
 	settings.Add("gbf",false,"Read About Gum Bo Fu");
-	settings.Add("emilyGBF",true,"Ask Emily About Gum Bo Fu");
+	settings.Add("emilyGBF",false,"Ask Emily About Gum Bo Fu");
 	settings.Add("mhm",false,"Open The Message In A Haunted Mansion");
-	settings.Add("fire",true,"Put Out The Fire");
-	settings.Add("sirens",false,"Police Sirens After Fire");
+	settings.Add("fire",false,"Put Out The Fire");
+	settings.Add("sirens",true,"Police Sirens After Fire");
 	settings.Add("pfRose",false,"Talk To Rose After Fire");
-	settings.Add("charlieGBF",true,"Ask Charlie About Gum Bo Fu");
+	settings.Add("charlieGBF",false,"Ask Charlie About Gum Bo Fu");
 	settings.Add("louisGBF",false,"Ask Louis About Gum Bo Fu");
-	settings.Add("pr0",false,"Start Zodiac Tile Press Puzzle");
-	settings.Add("pr1",true,"Start Chinese Safe Puzzle");
+	settings.Add("pr0",true,"Start Zodiac Tile Press Puzzle");
+	settings.Add("pr1",false,"Start Chinese Safe Puzzle");
 	settings.Add("pr2",false,"Start Moon/Sun Tile Flip Puzzle");
-	settings.Add("pr3",true,"Start Slider");
-	settings.Add("pr4",false,"Get Phoenix Eye");
-	settings.Add("gold",true,"\"Gold!\"");
+	settings.Add("pr3",false,"Start Slider");
+	settings.Add("pr4",true,"Get Phoenix Eye");
+	settings.Add("gold",false,"\"Gold!\"");
 	// settings end
 
 	vars.DebugOutput("Startup success");
