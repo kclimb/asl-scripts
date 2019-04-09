@@ -17,8 +17,8 @@ Issues have been reported with the Rick's tape split not working on Master diffi
 
 ## Message in a Haunted Mansion
 
-4/8/2019:
-Currently waiting for LiveSplit approval.
+4/9/2019:
+Available in LiveSplit.
 
 Planned development complete. Message me about bugs/requests.
 
