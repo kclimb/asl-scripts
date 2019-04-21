@@ -20,7 +20,7 @@ Issues have been reported with the Rick's tape split not working on Master diffi
 4/9/2019:
 Available in LiveSplit.
 
-Planned development complete. Message me about bugs/requests.
+Planned development complete. Message me or write an issue about bugs/requests.
 
 ## Treasure in the Royal Tower
 
@@ -41,14 +41,14 @@ Development in progress, nothing usable at this time.
 2/26/2019:
 Available in LiveSplit.
 
-Development complete. Message me about bugs/requests.
+Development complete. Message me or write an issue about bugs/requests.
 
 ## Curse of Blackmoor Manor
 
 2/26/2019:
 Available in LiveSplit.
 
-Development complete. Message me about bugs/requests.
+Development complete. Message me or write an issue about bugs/requests.
 
 # Planned Splitters
 These are the autosplitters I plan to make but have not worked on yet:
