@@ -48,7 +48,7 @@ Development complete. Message me or write an issue about bugs/requests.
 4/25/2019:  
 Not available in LiveSplit.  
 
-insert :eyes: emoji here. It's happening tm  
+:eyes:  
 
 ## Curse of Blackmoor Manor
 
