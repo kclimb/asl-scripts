@@ -24,14 +24,14 @@ Planned development complete. Message me or write an issue about bugs/requests.
 
 ## Treasure in the Royal Tower
 
-4/8/2019:
+4/25/2019:
 Not available in LiveSplit.
 
 Development in progress, nothing usable at this time.
 
 ## The Final Scene
 
-4/8/2019:
+4/25/2019:
 Not available in LiveSplit.
 
 Development in progress, nothing usable at this time.
@@ -43,6 +43,13 @@ Available in LiveSplit.
 
 Development complete. Message me or write an issue about bugs/requests.
 
+## Secret of Shadow Ranch
+
+4/25/2019:  
+Not available in LiveSplit.  
+
+insert :eyes: emoji here. It's happening tm  
+
 ## Curse of Blackmoor Manor
 
 2/26/2019:
@@ -53,12 +60,12 @@ Development complete. Message me or write an issue about bugs/requests.
 # Planned Splitters
 These are the autosplitters I plan to make but have not worked on yet:
 
-Secrets Can Kill (original)  
+~~Secrets Can Kill (original)~~ evilclownattack has you covered here: https://github.com/evilclownattack/autosplitters/blob/master/SCK.asl  
 Ghost Dogs of Moon Lake  
 The Haunted Carousel  
 Danger on Deception Island  
-Secret of Shadow Ranch  
 Secret of the Old Clock  
 Last Train to Blue Moon Canyon  
 Danger by Design  
-Creature of Kapu Cave
+Creature of Kapu Cave  
+~~White Wolf of Icicle Creek~~ evilclownattack has one for this too: https://github.com/evilclownattack/autosplitters/blob/master/ICE.asl
