@@ -2,14 +2,18 @@
 //  - Nine Hours, Nine Persons, Nine Doors
 //  - Virtue's Last Reward
 //
-// Written by toburr
-// DM me at twitch.tv/toburr or on discord for questions/feedback
+// Written by Smileyz and toburr
+// Feel free to DM toburr at twitch.tv/toburr or on discord for questions/feedback
+// Joining the Zero Ronpa discord can point you toward a whole community of folks to answer questions :^)
 //
 // Currently only 999 any% is supported, but I plan to get around to other categories and VLR if I can.
 
 state("ze1")
 {
 	// a bunch of memory addresses which may or may not be useful for autosplitting
+	uint AllSkip : 0x183914; // Whether we have All Skip on in text segments
+	uint Decision : 0x27AC00; // Whether we're currently in the text decision interface
+	uint PuzzleIntro : 0x24B294; // Whether the intro cutscene of a room is playing
 	uint credits : 0x245B98; // FPS-tracker-looking thing??
 	uint credits2 : 0x19943C; // Another credits tracker
   uint exitdoor : 0x199220; // Seems to always be 4220284815 whenever you A) finish a room (good!) or B) briefly when you move towards the escape room door (not good!). So a necessary but not sufficient condition.
@@ -23,6 +27,12 @@ state("ze1")
 	uint operating_room : 0x188F7C; // Value that changes after finishing the dialog post operating room escape
 	uint all_escapes_start : 0x3BE06C; // Goes from 0 to 2 when you start a memory, back to 0 after
 	uint all_escapes_start_backup : 0x3BE05C; // ^ but 1090848000 -> 1090848001
+}
+
+isLoading
+{
+	//return ((current.AllSkip == 2) && (current.Decision == 1) && (current.credits2 == 0)) || ((current.AllSkip == 0) && (current.PuzzleIntro == 9) && (current.Credits == 0));
+	return (current.AllSkip == 2 && current.credits2 == 0 && (current.Decision == 1 || current.PuzzleIntro == 9));
 }
 
 startup
