@@ -6,6 +6,19 @@ These are the Autosplitters currently available in this repo.
 
 Direct all feedback to twitch.tv/toburr or find me on discord
 
+## Zero Escape: The Nonary Games
+Cowritten with Smileyz
+
+8/2/2019:
+Not yet available in LiveSplit.
+
+Currently supports autosplitting for 999 Any%, 999 All Endings, and 999 All Escapes, as well as Load Removal for all 999 categories. Support for VLR categories will be added eventually tm.
+
+Known Issues:
+- All Escapes runs end slightly early. The autosplitter will do the final split at the start of the You Found It cutscene instead of upon returning to the Memories of the Escape menu. We have an idea of how to fix this, and hope to remove this issue shortly.
+- Unconfirmed: it's been reported that sometimes on full-game runs the autosplitter will see a false positive and split at an inappropriate time (the case mentioned to me involved a premature split during the cutscene after getting the red key in the 3rd class cabin). Have not verified this yet.
+- It has also been reported that the autosplitter will not split after the Library or the Torture Room in full game runs. I have attempted to replicate this issue but have not been able to do so.
+
 ## Stay Tuned for Danger
 
 4/8/2019:
@@ -45,10 +58,10 @@ Development complete. Message me or write an issue about bugs/requests.
 
 ## Secret of Shadow Ranch
 
-4/25/2019:  
-Not available in LiveSplit.  
+8/2/2019:  
+Available in LiveSplit.  
 
-:eyes:  
+Development complete. Message me or write an issue about bugs/requests.  
 
 ## Curse of Blackmoor Manor
 
