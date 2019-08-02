@@ -73,6 +73,7 @@ Development complete. Message me or write an issue about bugs/requests.
 # Planned Splitters
 These are the autosplitters I plan to make but have not worked on yet:
 
+Zero Escape: Zero Time Dilemma
 ~~Secrets Can Kill (original)~~ evilclownattack has you covered here: https://github.com/evilclownattack/autosplitters/blob/master/SCK.asl  
 Ghost Dogs of Moon Lake  
 The Haunted Carousel  
