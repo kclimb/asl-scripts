@@ -9,7 +9,7 @@ Direct all feedback to twitch.tv/toburr or find me on discord
 ## Zero Escape: The Nonary Games
 Cowritten with Smileyz
 
-8/2/2019:
+Last Status Update 8/2/2019:  
 Not yet available in LiveSplit.
 
 Currently supports autosplitting for 999 Any%, 999 All Endings, and 999 All Escapes, as well as Load Removal for all 999 categories. Support for VLR categories will be added eventually tm.
@@ -21,7 +21,7 @@ Known Issues:
 
 ## Stay Tuned for Danger
 
-4/8/2019:
+Last Status Update 4/8/2019:  
 Available in LiveSplit.
 
 Any% and No-Save routes are fully tested, Glitchless isn't, but it's probably fine if No-Save is.
@@ -30,42 +30,42 @@ Issues have been reported with the Rick's tape split not working on Master diffi
 
 ## Message in a Haunted Mansion
 
-4/9/2019:
+Last Status Update 4/9/2019:  
 Available in LiveSplit.
 
 Planned development complete. Message me or write an issue about bugs/requests.
 
 ## Treasure in the Royal Tower
 
-4/25/2019:
+Last Status Update 4/25/2019:  
 Not available in LiveSplit.
 
 Development in progress, nothing usable at this time.
 
 ## The Final Scene
 
-4/25/2019:
+Last Status Update 4/25/2019:  
 Not available in LiveSplit.
 
 Development in progress, nothing usable at this time.
 
 ## Secret of the Scarlet Hand
 
-2/26/2019:
+Last Status Update 2/26/2019:  
 Available in LiveSplit.
 
 Development complete. Message me or write an issue about bugs/requests.
 
 ## Secret of Shadow Ranch
 
-8/2/2019:  
+Last Status Update 8/2/2019:  
 Available in LiveSplit.  
 
 Development complete. Message me or write an issue about bugs/requests.  
 
 ## Curse of Blackmoor Manor
 
-2/26/2019:
+Last Status Update 2/26/2019:  
 Available in LiveSplit.
 
 Development complete. Message me or write an issue about bugs/requests.
