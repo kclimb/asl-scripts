@@ -17,8 +17,8 @@ Currently supports autosplitting for 999 Any%, 999 All Endings, and 999 All Esca
 Known Issues:
 - 999 All Escapes runs end slightly early. The autosplitter will do the final split at the start of the You Found It cutscene instead of upon returning to the Memories of the Escape menu per the rules. We have an idea of how to fix this, and hope to remove this issue shortly.
 - Deleting a save file from the "Delete save data" option on the main menu of 999 will prevent the timer from automatically starting for 999 full-game runs. To resolve this, load any save file, then go back to the main menu (or just reboot the game). The game has not been friendly to us in our attempts to properly fix this issue, so we hope that these simple workarounds suffice.
-- Unconfirmed: it's been reported that sometimes on 999 full-game runs the autosplitter will see a false positive and split at an inappropriate time (the case mentioned to me involved a premature split during the cutscene after getting the red key in the 3rd class cabin). Have not attempted to verify this yet.
-- It has also been reported that the autosplitter will not split sometimes after the Library or the Torture Room in 999 full game runs. I have attempted to replicate this issue but have not been able to do so successfully.
+- Sometimes on 999 full-game runs the autosplitter will see a false positive and split at an inappropriate time. The only verified example is the cutscene after getting the red key in the 3rd-class cabin, but there may be more. We've identified the cause, but are not yet certain of the solution.
+- It has been reported that the autosplitter will not split sometimes after the Library or the Torture Room in 999 full game runs. We have attempted to replicate this issue but have not been able to do so successfully.
 
 ## Stay Tuned for Danger
 
