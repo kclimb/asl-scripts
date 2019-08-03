@@ -49,6 +49,7 @@ startup
 	// Includes 999 categories and VLR categories
 	settings.Add("ze1Full",true,"999 Any%/All Endings");
 	settings.Add("ze1AllEscapes", false, "999 All Escapes");
+	settings.Add("ze1IL", false, "999 Individual Ending (uncheck 999 Any%/All Endings for this to work!)");
   // settings end
 
   vars.DebugOutput("Startup success");
@@ -87,11 +88,15 @@ update
 
 start // gamestart goes from something (usually 315-321ish) to 4 if we don't create a new game save, 5 if we do
 {
-	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
+	if ((settings["ze1Full"] || settings["ze1IL"]) && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
 		vars.oproom = false;
 		vars.numRoomsEscaped = 0;
-		vars.numEndings = 0;
 		vars.category = 1;
+		if (settings["ze1Full"]) {
+			vars.numEndings = 0;
+		} else {
+			vars.numEndings = 4;
+		}
 		return true;
 	}
 
