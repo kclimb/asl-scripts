@@ -90,7 +90,7 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
 		vars.oproom = false;
 		vars.numRoomsEscaped = 0;
-		vars.numEndings = 3;
+		vars.numEndings = 0;
 		vars.category = 1;
 		return true;
 	}
