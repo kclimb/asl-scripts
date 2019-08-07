@@ -15,9 +15,9 @@ Not yet available in LiveSplit.
 Currently supports autosplitting for 999 Any%, 999 All Endings, and 999 All Escapes, as well as Load Removal for all 999 categories. Support for VLR categories will be added eventually.
 
 Known Issues:
-- 999 All Escapes runs end slightly early. The autosplitter will do the final split at the start of the You Found It cutscene instead of upon returning to the Memories of the Escape menu per the rules. We have an idea of how to fix this, and hope to remove this issue shortly.
+- 999 All Escapes runs currently don't seem to do the final split at all. Cause: the address we currently use to track transitions between the Memories menu and the escape rooms seems to get frozen while doing the Library, and never fixes itself until the game is rebooted. This will likely necessitate an overhaul of how we do All Escapes
+- In 999 All Escapes runs, frame-perfectly skipping the You Found It cutscene will prevent the autosplitter from detecting that the room has been completed, resulting in not splitting on that room, and subsequently not splitting at the right time at the end of the run. As mentioned with the former issue, we're reworking All Escapes anyway and will need to fix both these issues together. Full-game runs are not affected by this because the You Found It cutscene is unskippable when solving a room for the first time.
 - Deleting a save file from the "Delete save data" option on the main menu of 999 will prevent the timer from automatically starting for 999 full-game runs. To resolve this, load any save file, then go back to the main menu (or just reboot the game). The game has not been friendly to us in our attempts to properly fix this issue, so we hope that these simple workarounds suffice.
-- Sometimes on 999 full-game runs the autosplitter will see a false positive and split at an inappropriate time. The only verified example is the cutscene after getting the red key in the 3rd-class cabin, but there may be more. We've identified the cause, but are not yet certain of the solution.
 - It has been reported that the autosplitter will not split sometimes after the Library or the Torture Room in 999 full game runs. We have attempted to replicate this issue but have not been able to do so successfully.
 
 ## Stay Tuned for Danger
