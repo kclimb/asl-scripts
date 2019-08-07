@@ -14,25 +14,29 @@ state("ze1")
 	uint AllSkip : 0x183914; // Whether we have All Skip on in text segments
 	uint Decision : 0x27AC00; // Whether we're currently in the text decision interface
 	uint PuzzleIntro : 0x24B294; // Whether the intro cutscene of a room is playing
-	uint credits : 0x19943C; // Credits tracker
-  uint exitdoor : 0x199220; // Seems to always be 4220284815 whenever you A) finish a room (good!) or B) briefly when you move towards the escape room door (not good!). So a necessary but not sufficient condition.
-  uint escape_state : 0x244DC8; // IDK what this does but it seems to reuse values very rarely, which is useful
-	uint gamestart : 0x26B668; // Goes to 5 (create save) or 4 (don't create save) when starting new game. Can ALSO do this when you delete save data from the main menu but just don't do that pls thnx :^)
-	uint foundit : 0x2448D0; // UPDATE: this var might go x -> 808530015 (x=1769497951 for casino, lab, engine, and cargo; x=811562089 for 3rd class cabin and 2nd class cabin) for every escape? (original comment: 1970631775 -> 1769497951 when exiting engine room (addresses 0x2448D4 and 0x2448D8 look usable too))
-	uint linecounterquestionmark : 0x18AF54; // It looks like it counts which line of dialog you're on in a given batch of them. Resets at unintuitive moments though
-	uint operating_room : 0x188F7C; // Value that changes after finishing the dialog post operating room escape
+
 	uint all_escapes_start : 0x3BE06C; // Goes from 0 to 2 when you start a memory, back to 0 after
-	uint all_escapes_start_backup : 0x3BE05C; // ^ but 1090848000 -> 1090848001
+	uint aes_backup : 0x3BE05C; // ^ but 1090848000 -> 1090848001
 	uint aes_alt : 0x3BE70C; // One time the value at all_escapes_start was here instead. idk why
-	uint axeknife : 0x24A364; // 24 for knife ending
+
+	uint axeknife : 0x24A364; // 24 for axe and knife endings
+	uint credits : 0x19943C; // Credits tracker. Is non-zero while credits are happening
+  uint escape_state : 0x244DC8; // IDK what this does but it seems to reuse values very rarely, which is useful
+	uint exitdoor : 0x199220; // Seems to always be 4220284815 whenever you A) finish a room (good!) or B) briefly when you move towards the escape room door (not good!). So a necessary but not sufficient condition.
+	uint foundit : 0x2448D0; // UPDATE: this var might go x -> 808530015 (x=1769497951 for casino, lab, engine, and cargo; x=811562089 for 3rd class cabin and 2nd class cabin) for every escape? (original comment: 1970631775 -> 1769497951 when exiting engine room (addresses 0x2448D4 and 0x2448D8 look usable too))
+	uint foundit2 : 0x273EB4; // Value that changes during the entirety of you found it screens (1684078848 -> 1684078849), needed to unpause during oproom you found it
+
+	uint gamestart : 0x26B668; // Goes to 5 (create save) or 4 (don't create save) when starting new game. Can ALSO do this when you delete save data from the main menu but just don't do that pls thnx :^)
+	uint operating_room : 0x188F7C; // Value that changes after finishing the dialog post operating room escape
 	uint postgame_save : 0x24A6A8; // 1330511872 after saving your game
 	uint postgame_save_backup : 0x24A6E8; // 1917845504 after saving your game
+
+	uint linecounterquestionmark : 0x18AF54; // It looks like it counts which line of dialog you're on in a given batch of them. Resets at unintuitive moments though
 }
 
 isLoading
 {
-	//return ((current.AllSkip == 2) && (current.Decision == 1) && (current.credits == 0)) || ((current.AllSkip == 0) && (current.PuzzleIntro == 9) && (current.credits == 0));
-	return current.credits == 0 && ((current.AllSkip == 2 && current.Decision == 1) || (current.AllSkip == 0 && current.PuzzleIntro == 9));
+	return current.credits == 0 && ((current.AllSkip == 2 && current.Decision == 1 && current.foundit2 != 1684078848) || (current.AllSkip == 0 && current.PuzzleIntro == 9));
 }
 
 startup
@@ -44,12 +48,9 @@ startup
 	vars.DebugOutput = DebugOutput;
 
   // Autosplitter settings
-	// TODO: come up with setting structure
-	// Checkbox for category (just set the value based on the first checked box)
 	// Includes 999 categories and VLR categories
 	settings.Add("ze1Full",true,"999 Any%/All Endings");
 	settings.Add("ze1AllEscapes", false, "999 All Escapes");
-	settings.Add("ze1IL", false, "999 Individual Ending (uncheck 999 Any%/All Endings for this to work!)");
   // settings end
 
   vars.DebugOutput("Startup success");
@@ -84,19 +85,18 @@ update
 	if (current.axeknife == 842030960 && current.axeknife != old.axeknife) {
 		vars.DebugOutput("Knifed!!!");
 	}
+	if (settings["ze1AllEscapes"] && current.all_escapes_start != old.all_escapes_start) {
+		vars.DebugOutput("All Escapes start value: "+current.all_escapes_start);
+	}
 }
 
 start // gamestart goes from something (usually 315-321ish) to 4 if we don't create a new game save, 5 if we do
 {
-	if ((settings["ze1Full"] || settings["ze1IL"]) && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
+	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
 		vars.oproom = false;
 		vars.numRoomsEscaped = 0;
 		vars.category = 1;
-		if (settings["ze1Full"]) {
-			vars.numEndings = 0;
-		} else {
-			vars.numEndings = 4;
-		}
+		vars.numEndings = 0;
 		return true;
 	}
 
@@ -158,6 +158,9 @@ split
 	// Most common escape room case
 	// --------------------------------
 	if (current.foundit == 808530015 && current.foundit != old.foundit) {
+		if (current.escape_state == 1131741184) {
+			vars.oproom = true;
+		}
 		vars.numRoomsEscaped += 1;
 		if (vars.category == 1 || vars.numRoomsEscaped < 16) {
 			return true;
