@@ -12,7 +12,7 @@ Co-written with Smileyz
 Last Status Update 8/7/2019:  
 Not yet available in LiveSplit.
 
-Currently supports autosplitting for 999 Any%, 999 All Endings, and 999 All Escapes, as well as Load Removal for all 999 categories. Support for VLR categories will be added eventually.
+Currently supports autosplitting for 999 Any%, 999 All Endings, ~~and 999 All Escapes~~, as well as Load Removal for all 999 categories. Support for VLR categories will be added eventually.
 
 Known Issues:
 - 999 All Escapes runs currently don't seem to do the final split at all. Cause: the address we currently use to track transitions between the Memories menu and the escape rooms seems to get frozen while doing the Library, and never fixes itself until the game is rebooted. This will likely necessitate an overhaul of how we do All Escapes
