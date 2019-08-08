@@ -9,7 +9,7 @@ Direct all feedback to twitch.tv/toburr or find me on discord
 ## Zero Escape: The Nonary Games
 Co-written with Smileyz
 
-Last Status Update 8/2/2019:  
+Last Status Update 8/7/2019:  
 Not yet available in LiveSplit.
 
 Currently supports autosplitting for 999 Any%, 999 All Endings, and 999 All Escapes, as well as Load Removal for all 999 categories. Support for VLR categories will be added eventually.
