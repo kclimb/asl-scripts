@@ -211,13 +211,14 @@ split
 		case 222822400: // Begin puzzle rush
 			if (!vars.pr0) { vars.pr0 = true; return true; }
 			break;
-		case 218431488: // Finish zodiac press
+		case 218431488: // Start safe
 			if (!vars.pr1) { vars.pr1 = true; return true; }
 			break;
-		case 227540992: // Finish zodiac safe
+		case 227540992: // Put symbol in pyramid
 			if (!vars.pr2) { vars.pr2 = true; return true; }
 			break;
-		case 227606528: // Finish sun puzzle
+		case 227672064: // Finish sun puzzle senior
+		case 227606528: // Finish sun puzzle junior
 			if (!vars.pr3) { vars.pr3 = true; return true; }
 			break;
 		case 227475456: // Finish slider
