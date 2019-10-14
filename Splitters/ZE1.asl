@@ -3,10 +3,10 @@
 //  - Virtue's Last Reward
 //
 // Written by Smileyz and toburr
-// Feel free to DM toburr at twitch.tv/toburr or on discord for questions/feedback
 // Joining the Zero Ronpa discord can point you toward a whole community of folks to answer questions :^)
+// For technical questions about this program, feel free to DM toburr at twitch.tv/toburr or on discord for questions/feedback
 //
-// Currently only 999 is supported, but we plan to get around to other VLR when we can.
+// Currently only 999 is supported, but we plan to get around to VLR when we can.
 
 state("ze1")
 {
@@ -18,6 +18,8 @@ state("ze1")
 	uint all_escapes_start : 0x3BE06C; // Goes from 0 to 2 when you start a memory, back to 0 after
 	uint aes_backup : 0x3BE05C; // ^ but 1090848000 -> 1090848001
 	uint aes_alt : 0x3BE70C; // One time the value at all_escapes_start was here instead. idk why
+	uint aes_3 : 0x3BD93C; // 0->1
+	uint aes_4 : 0x3BD94C; // 0->2
 
 	uint axeknife : 0x24A364; // 24 for axe and knife endings
 	uint credits : 0x19943C; // Credits tracker. Is non-zero while credits are happening
@@ -32,6 +34,7 @@ state("ze1")
 	uint postgame_save_backup : 0x24A6E8; // 1917845504 after saving your game
 
 	uint linecounterquestionmark : 0x18AF54; // It looks like it counts which line of dialog you're on in a given batch of them. Resets at unintuitive moments though
+	uint in_room : 0x19935C; // Gets set to 65536+ after puzzle intro finishes, goes to 0 when back on memories menu
 }
 
 isLoading
@@ -94,15 +97,15 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 {
 	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
 		vars.oproom = false;
-		vars.numRoomsEscaped = 0;
+		//vars.numRoomsEscaped = 0;
 		vars.category = 1;
 		vars.numEndings = 0;
 		return true;
 	}
 
-	if (settings["ze1AllEscapes"] && ((current.all_escapes_start == 2 && old.all_escapes_start == 0) || (current.aes_alt == 2 && old.aes_alt == 0))) {
-		vars.oproom = false;
-		vars.numRoomsEscaped = 0;
+	if (settings["ze1AllEscapes"] && ((current.all_escapes_start - old.all_escapes_start == 2) || (current.aes_alt - old.aes_alt == 2) || (current.aes_3 - old.aes_3 == 1) || (current.aes_4 - old.aes_4 == 2))) {
+		//vars.oproom = false;
+		//vars.numRoomsEscaped = 0;
 		vars.numEndings = 0;
 		vars.category = 2;
 		return true;
@@ -111,65 +114,71 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 
 split
 {
-	// ----------------
-	// Credits handling
-	// ----------------
+	// -------------
+	// Fullgame runs
+	// -------------
+	if (vars.category == 1) {
+		// ----------------
+		// Credits handling
+		// ----------------
 
-	// True end
-  if (current.credits == 8198272 && current.credits != old.credits) {
-		vars.numEndings += 1;
-		if (vars.numEndings < 5) return true;
-	}
-	// Safe end
-	if (current.credits == 8108064 && current.credits != old.credits) {
-		vars.numEndings += 1;
-		if (vars.numEndings < 5) return true;
-	}
-	// Sub end
-	if (current.credits == 8142368 && current.credits != old.credits) {
-		vars.numEndings += 1;
-		if (vars.numEndings < 5) return true;
-	}
-	// Axe/Knife ending
-	if ((current.axeknife == 842030960 && old.axeknife != current.axeknife) ) {
-		vars.numEndings += 1;
-		vars.DebugOutput("At axe/knife end");
-		if (vars.numEndings < 5) return true;
-	}
-	// If we've seen every ending, don't split til we do the last postgame save
-	if (vars.numEndings > 4 && current.postgame_save == 1330511872 && current.postgame_save != old.postgame_save) {
-		return true;
-	}
-
-  // ------------------------------
-	// Special cases for escape rooms
-	// ------------------------------
-
-	// Operating Room
-	if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
-		vars.oproom = true;
-		vars.numRoomsEscaped += 1;
-		if (vars.category == 1 || vars.numRoomsEscaped < 16) {
+		// True end
+	  if (current.credits == 8198272 && current.credits != old.credits) {
+			vars.numEndings += 1;
+			if (vars.numEndings < 5) return true;
+		}
+		// Safe end
+		if (current.credits == 8108064 && current.credits != old.credits) {
+			vars.numEndings += 1;
+			if (vars.numEndings < 5) return true;
+		}
+		// Sub end
+		if (current.credits == 8142368 && current.credits != old.credits) {
+			vars.numEndings += 1;
+			if (vars.numEndings < 5) return true;
+		}
+		// Axe/Knife ending
+		if ((current.axeknife == 842030960 && old.axeknife != current.axeknife) ) {
+			vars.numEndings += 1;
+			vars.DebugOutput("At axe/knife end");
+			if (vars.numEndings < 5) return true;
+		}
+		// If we've seen every ending, don't split til we do the last postgame save
+		if (vars.numEndings > 4 && current.postgame_save == 1330511872 && current.postgame_save != old.postgame_save) {
 			return true;
 		}
-	}
 
-	// --------------------------------
-	// Most common escape room case
-	// --------------------------------
-	if (current.foundit == 808530015 && current.foundit != old.foundit) {
-		if (current.escape_state == 1131741184) {
+	  // ------------------------------
+		// Special cases for escape rooms
+		// ------------------------------
+
+		// Operating Room
+		if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
 			vars.oproom = true;
+			//vars.numRoomsEscaped += 1;
+			return true;
 		}
-		vars.numRoomsEscaped += 1;
-		if (vars.category == 1 || vars.numRoomsEscaped < 16) {
+
+		// ------------------------------------------------------
+		// Most common escape room case: the You Found It! screen
+		// ------------------------------------------------------
+		if (current.foundit == 808530015 && current.foundit != old.foundit) {
+			if (current.escape_state == 1131741184) {
+				vars.oproom = true;
+			}
+			//vars.numRoomsEscaped += 1;
 			return true;
 		}
 	}
 
-	// If we're doing an all escapes run and we just did the last escape, don't split til we're back on the menu
-	if (vars.category == 2 && vars.numRoomsEscaped >= 16 && current.all_escapes_start == 0 && current.all_escapes_start != old.all_escapes_start) {
-		return true;
+	// ----------------
+	// All Escapes runs
+	// ----------------
+	else if (vars.category == 2) {
+		// Split once we're back on the menu
+		if (current.in_room != old.in_room && current.in_room == 0) {
+			return true;
+		}
 	}
 
 	// Old code I'm keeping in case the above doesn't end up working
