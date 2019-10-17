@@ -49,6 +49,7 @@ startup
 		print("[999 Autosplitter] "+text);
 	};
 	vars.DebugOutput = DebugOutput;
+	vars.cateogry = 0;
 
   // Autosplitter settings
 	// Includes 999 categories and VLR categories
@@ -95,18 +96,17 @@ update
 
 start // gamestart goes from something (usually 315-321ish) to 4 if we don't create a new game save, 5 if we do
 {
+	vars.category = 0;
+	vars.oproom = false;
+	vars.numEndings = 0;
 	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
-		vars.oproom = false;
 		//vars.numRoomsEscaped = 0;
 		vars.category = 1;
-		vars.numEndings = 0;
 		return true;
 	}
 
 	if (settings["ze1AllEscapes"] && ((current.all_escapes_start - old.all_escapes_start == 2) || (current.aes_alt - old.aes_alt == 2) || (current.aes_3 - old.aes_3 == 1) || (current.aes_4 - old.aes_4 == 2))) {
-		//vars.oproom = false;
 		//vars.numRoomsEscaped = 0;
-		vars.numEndings = 0;
 		vars.category = 2;
 		return true;
 	}
@@ -117,7 +117,7 @@ split
 	// -------------
 	// Fullgame runs
 	// -------------
-	if (vars.category == 1) {
+	if (vars.category == 1 || (vars.category == 0 && settings["ze1Full"])) {
 		// ----------------
 		// Credits handling
 		// ----------------
@@ -174,7 +174,7 @@ split
 	// ----------------
 	// All Escapes runs
 	// ----------------
-	else if (vars.category == 2) {
+	else if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
 		// Split once we're back on the menu
 		if (current.in_room != old.in_room && current.in_room == 0) {
 			return true;
