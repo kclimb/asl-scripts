@@ -121,7 +121,6 @@ split
 		// ----------------
 		// Credits handling
 		// ----------------
-
 		// True end
 	  if (current.credits == 8198272 && current.credits != old.credits) {
 			vars.numEndings += 1;
@@ -151,7 +150,6 @@ split
 	  // ------------------------------
 		// Special cases for escape rooms
 		// ------------------------------
-
 		// Operating Room
 		if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
 			vars.oproom = true;
@@ -174,7 +172,7 @@ split
 	// ----------------
 	// All Escapes runs
 	// ----------------
-	else if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
+	if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
 		// Split once we're back on the menu
 		if (current.in_room != old.in_room && current.in_room == 0) {
 			return true;
