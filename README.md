@@ -20,6 +20,13 @@ Known Issues:
 - Deleting a save file from the "Delete save data" option on the main menu of 999 will prevent the timer from automatically starting for 999 full-game runs. To resolve this, load any save file, then go back to the main menu (or just reboot the game). The game has not been friendly to us in our attempts to properly fix this issue, so we hope that these simple workarounds suffice.
 - It has been reported that the autosplitter will not split sometimes after the Library or the Torture Room in 999 full game runs. We have attempted to replicate this issue but have not been able to do so successfully.
 
+## Secrets Can Kill (original, not the remastered version)
+
+Last Status Update: 11/11/2019:  
+Complete, but this version is NOT the one available in LiveSplit. That would be evilclownattack's autosplitter, which you can find here: https://github.com/evilclownattack/autosplitters/blob/master/SCK.asl
+
+I made this one anyway for personal use, and I might consider merging it with ECA's if he and other people want that, but I'm not prioritizing it.
+
 ## Stay Tuned for Danger
 
 Last Status Update 4/8/2019:  
@@ -38,14 +45,14 @@ Planned development complete. Message me or write an issue about bugs/requests.
 
 ## Treasure in the Royal Tower
 
-Last Status Update 4/25/2019:  
+Last Status Update 11/11/2019:  
 Not available in LiveSplit.
 
 Development in progress, nothing usable at this time.
 
 ## The Final Scene
 
-Last Status Update 4/25/2019:  
+Last Status Update 11/11/2019:  
 Not available in LiveSplit.
 
 Development in progress, nothing usable at this time.
@@ -53,6 +60,13 @@ Development in progress, nothing usable at this time.
 ## Secret of the Scarlet Hand
 
 Last Status Update 2/26/2019:  
+Available in LiveSplit.
+
+Development complete. Message me or write an issue about bugs/requests.
+
+## The Haunted Carousel
+
+Last Status Update 11/11/2019:
 Available in LiveSplit.
 
 Development complete. Message me or write an issue about bugs/requests.
@@ -75,12 +89,10 @@ Development complete. Message me or write an issue about bugs/requests.
 These are the autosplitters I plan to make but have not worked on yet:
 
 Zero Escape: Zero Time Dilemma  
-~~Secrets Can Kill (original)~~ evilclownattack has you covered here: https://github.com/evilclownattack/autosplitters/blob/master/SCK.asl  
 Ghost Dogs of Moon Lake  
-The Haunted Carousel  
 Danger on Deception Island  
 Secret of the Old Clock  
 Last Train to Blue Moon Canyon  
 Danger by Design  
 Creature of Kapu Cave  
-~~White Wolf of Icicle Creek~~ evilclownattack has one for this too: https://github.com/evilclownattack/autosplitters/blob/master/ICE.asl
+~~White Wolf of Icicle Creek~~ evilclownattack has you covered here: https://github.com/evilclownattack/autosplitters/blob/master/ICE.asl
