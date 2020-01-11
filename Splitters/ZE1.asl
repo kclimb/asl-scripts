@@ -8,7 +8,7 @@
 //
 // Currently only 999 is supported, but we plan to get around to VLR when we can.
 
-state("ze1")
+state("ze1","ENG")
 {
 	// a bunch of memory addresses which may or may not be useful for autosplitting
 	uint AllSkip : 0x183914; // Whether we have All Skip on in text segments
@@ -35,6 +35,11 @@ state("ze1")
 
 	uint linecounterquestionmark : 0x18AF54; // It looks like it counts which line of dialog you're on in a given batch of them. Resets at unintuitive moments though
 	uint in_room : 0x19935C; // Gets set to 65536+ after puzzle intro finishes, goes to 0 when back on memories menu
+}
+
+state("ze1","JPN")
+{
+
 }
 
 isLoading
@@ -91,6 +96,9 @@ update
 	}
 	if (settings["ze1AllEscapes"] && current.all_escapes_start != old.all_escapes_start) {
 		vars.DebugOutput("All Escapes start value: "+current.all_escapes_start);
+	}
+	if (current.in_room != old.in_room) {
+		vars.DebugOutput("In-room val: "+current.in_room);
 	}
 }
 
