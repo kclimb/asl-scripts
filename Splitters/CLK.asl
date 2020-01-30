@@ -2,10 +2,14 @@
 // Written by toburr
 // DM me at twitch.tv/toburr or on discord for questions/feedback
 
-state("Game")
+state("Game", "Steam")
 {
 	string15 vidname : 0x1AB520;
-	uint startflag : 0x1AC090;
+}
+
+state("Game", "Disc")
+{
+	string15 vidname : 0x1AA520;
 }
 
 //update
