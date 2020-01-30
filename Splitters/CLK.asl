@@ -12,12 +12,18 @@ state("Game", "Disc")
 	string15 vidname : 0x1AA520;
 }
 
-//update
-//{
-//  if (current.vidname != old.vidname) {
-//    vars.DebugOutput("Sceneval changed: "+current.vidname);
-//  }
-//}
+init
+{
+
+}
+
+update
+{
+  if (current.vidname != old.vidname) {
+    vars.DebugOutput("Sceneval changed: "+current.vidname);
+		vars.DebugOutput("Memory size is: "+modules.First().ModuleMemorySize);
+  }
+}
 
 startup
 {
