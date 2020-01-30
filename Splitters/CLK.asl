@@ -14,16 +14,20 @@ state("Game", "Disc")
 
 init
 {
-
+	if (modules.First().ModuleMemorySize == 2420736) {
+		version = "Steam";
+	} else {
+		version = "Disc";
+	}
 }
 
-update
-{
-  if (current.vidname != old.vidname) {
-    vars.DebugOutput("Sceneval changed: "+current.vidname);
-		vars.DebugOutput("Memory size is: "+modules.First().ModuleMemorySize);
-  }
-}
+//update
+//{
+//  if (current.vidname != old.vidname) {
+//    vars.DebugOutput("Sceneval changed: "+current.vidname);
+//		vars.DebugOutput("Memory size is: "+modules.First().ModuleMemorySize);
+//  }
+//}
 
 startup
 {
