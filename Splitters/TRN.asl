@@ -38,57 +38,127 @@ startup
 	vars.DebugOutput = DebugOutput;
 
 	// Autosplitter settings
-	settings.Add("metcharleena",false,"Meet Charleena");
-	settings.Add("hardys",false,"Meet Hardy Boys");
-	settings.Add("metjohn",false,"Meet John");
-	settings.Add("mettino",false,"Meet Tino");
-	settings.Add("metlori",true,"Find Lori");
+	// Meeting people
+	settings.Add("Meeting People");
+	settings.Add("metcharleena",false,"Meet Charleena","Meeting People");
+	settings.Add("hardys",false,"Meet the Hardy Boys","Meeting People");
+	settings.Add("metjohn",false,"Meet John","Meeting People");
+	settings.Add("mettino",false,"Meet Tino","Meeting People");
+	settings.Add("metlori",true,"Find Lori","Meeting People");
+	settings.Add("metfatima",false,"Meet Fatima","Meeting People");
+
+	// Slugs
+	settings.Add("Slugs",false);
+	settings.Add("slug12",false,"Find slugs 1 and 2","Slugs");
+	settings.Add("slug3",false,"Find slug number 3","Slugs");
+	settings.Add("slug6",false,"Find slug number 6","Slugs");
+	settings.Add("slug7",false,"Find slug number 7","Slugs");
+	settings.Add("slug8",false,"Find slug number 8","Slugs");
+	settings.Add("slug10",false,"Find slug number 10","Slugs");
+
+	// Gems
+	settings.Add("Gems",false);
+	settings.Add("tigereye",false,"Find tiger's eye","Gems");
+	settings.Add("peridot",false,"Look at side of Ibex head with Peridot","Gems");
+	settings.Add("tourmaline",false,"Find tourmaline","Gems");
+	settings.Add("citrine",false,"Find citrine","Gems");
+	settings.Add("amethyst",false,"Find amethyst","Gems");
+	settings.Add("zircon",false,"Find zircon","Gems");
+
+	// Copper Gorge things
+	settings.Add("Copper Gorge");
+	settings.Add("cg",true,"Copper Gorge map cutscene","Copper Gorge");
+	settings.Add("horses",false,"Win token from horse betting","Copper Gorge");
+	settings.Add("pachinko",false,"Win token from Gold Rush","Copper Gorge");
+	settings.Add("taffy",false,"Get taffy from vending machine","Copper Gorge");
+	settings.Add("llstart",false,"Begin playing Leaping Lizards","Copper Gorge");
+	settings.Add("pen",false,"Tino gives you his pen","Copper Gorge");
+	settings.Add("autograph",false,"Charleena signs her autograph","Copper Gorge");
+	settings.Add("cryptkey",false,"Acquire the key to Camille's crypt","Copper Gorge");
+	settings.Add("paper",false,"Get wax paper","Copper Gorge");
+	settings.Add("frank",true,"Switch to playing as Frank","Copper Gorge");
+	settings.Add("doneburgers",false,"Ring the bell at the diner 5 times (if you don't make mistakes, this is the last burger)","Copper Gorge");
+
+	// Jake's machine parts
+	settings.Add("Jake's Machine Parts",false);
+	settings.Add("map",false,"Solve the map fetcher puzzle","Jake's Machine Parts");
+	settings.Add("pickaxe",false,"Get pickaxe","Jake's Machine Parts");
+	settings.Add("carbide",false,"Open up the carbide tin","Jake's Machine Parts");
+	settings.Add("spyglass",false,"Acquire spyglass","Jake's Machine Parts");
+	settings.Add("box",false,"Attempt John's puzzle box","Jake's Machine Parts");
+	settings.Add("tape",false,"Acquire duct tape","Jake's Machine Parts");
+
+	// Train puzzles
+	settings.Add("Train Puzzles",false);
+	settings.Add("tiledrawer",false,"Read note from tile puzzle in drawer","Train Puzzles");
+	settings.Add("thurston",false,"Find Jake's engineer's name","Train Puzzles");
+	settings.Add("jakepipes",false,"Look at pipes in Tino's car","Train Puzzles");
+	settings.Add("quietpipes",false,"Look at pipes in quiet car","Train Puzzles");
+	settings.Add("camillepipes",false,"Unscrew bolts covering pipe puzzle in John's car","Train Puzzles");
+	settings.Add("eaglepipes",false,"Look at pipes behind eagle painting","Train Puzzles");
+
+	// Endgame
+	settings.Add("Endgame");
+	settings.Add("lasers",true,"Activate laser light show","Endgame");
+	settings.Add("bc", false, "Brimstone Canyon map cutscene","Endgame");
+	settings.Add("bca", false, "Arrive at Brimstone Canyon","Endgame");
+	settings.Add("cannon", false, "Start cannon ring puzzle","Endgame");
+	settings.Add("boom", false, "Fire the cannon","Endgame");
+	settings.Add("abe",true, "Find the \"treasure\"","Endgame");
 	// settings end
 	vars.DebugOutput("Startup success");
 }
 start
 {
-	//return (current.vidname == "DIN_ToKitchen_A" || current.vidname == "DIN_Bar_Exit");
-	//return current.vidname == "CAB_Lori_CAL";
+	//return current.vidname == "DIN_ToKitchen_D";
 	if (current.vidname == "LET_Open_A") {
 		vars.metcharleena = !settings["metcharleena"];
 		vars.hardys = !settings["hardys"];
 		vars.metjohn = !settings["metjohn"];
 		vars.mettino = !settings["mettino"];
 		vars.metlori = !settings["metlori"];
-		vars.metfatima = true;
-		vars.cg = true;
-		vars.horses = true;
-		vars.pachinko = true;
-		vars.taffy = true;
-		vars.llstart = true;
-		vars.pen = true;
-		vars.autograph = true;
-		vars.cryptkey = true;
-		vars.paper = true;
-		vars.pickaxe = true;
-		vars.frank = true;
-		vars.doneburgers = true;
-		vars.box = true;
-		vars.tape = true;
-		vars.spyglass = true;
-		vars.tigereye = true;
-		vars.zircon = true;
-		vars.amethyst = true;
-		vars.citrine = true;
-		vars.tourmaline = true;
-		vars.peridot = true;
-		vars.slug12 = true;
-		vars.slug3 = true;
-		vars.slug6 = true;
-		vars.slug7 = true;
-		vars.slug8 = true;
-		vars.slug10 = true;
-		vars.lasers = true;
-		vars.bc = true;
-		vars.bca = true;
-		vars.cannon = true;
-		vars.boom = true;
+		vars.metfatima = !settings["metfatima"];
+		vars.map = !settings["map"];
+		vars.cg = !settings["cg"];
+		vars.horses = !settings["horses"];
+		vars.pachinko = !settings["pachinko"];
+		vars.taffy = !settings["taffy"];
+		vars.llstart = !settings["llstart"];
+		vars.pen = !settings["pen"];
+		vars.autograph = !settings["autograph"];
+		vars.cryptkey = !settings["cryptkey"];
+		vars.paper = !settings["paper"];
+		vars.pickaxe = !settings["pickaxe"];
+		vars.frank = !settings["frank"];
+		vars.doneburgers = !settings["doneburgers"];
+		vars.carbide = !settings["carbide"];
+		vars.box = !settings["box"];
+		vars.tape = !settings["tape"];
+		vars.spyglass = !settings["spyglass"];
+		vars.tigereye = !settings["tigereye"];
+		vars.peridot = !settings["peridot"];
+		vars.tourmaline = !settings["tourmaline"];
+		vars.citrine = !settings["citrine"];
+		vars.amethyst = !settings["amethyst"];
+		vars.zircon = !settings["zircon"];
+		vars.slug12 = !settings["slug12"];
+		vars.slug3 = !settings["slug3"];
+		vars.slug6 = !settings["slug6"];
+		vars.slug7 = !settings["slug7"];
+		vars.slug8 = !settings["slug8"];
+		vars.slug10 = !settings["slug10"];
+		vars.tiledrawer = !settings["tiledrawer"];
+		vars.thurston = !settings["thurston"];
+		vars.jakepipes = !settings["jakepipes"];
+		vars.quietpipes = !settings["quietpipes"];
+		vars.camillepipes = !settings["camillepipes"];
+		vars.eaglepipes = !settings["eaglepipes"];
+		vars.lasers = !settings["lasers"];
+		vars.bc = !settings["bc"];
+		vars.bca = !settings["bca"];
+		vars.cannon = !settings["cannon"];
+		vars.boom = !settings["boom"];
+		vars.abe = !settings["abe"];
 		vars.bell = 0;
 		return true;
 	}
@@ -96,8 +166,7 @@ start
 
 split
 {
-	//return old.vidname == "CAB_Lori_CAL" && current.vidname != old.vidname;
-	//return current.vidname == "CAM_DuctTapeXCU";
+	//return current.vidname == "DIN_ToBar_D";
 	string s = current.vidname;
 	if (s != old.vidname) {
 		switch (s) {
@@ -112,8 +181,17 @@ split
 			case "BRI_CannonFire_ANIM_": // boom
 				if (!vars.boom) { vars.boom = true; return true; }
 				break;
+			case "CAB_CabCoinsCU": // get slugs 1 and 2
+				if (!vars.slug12) { vars.slug12 = true; return true; }
+				break;
 			case "CAB_Lori_CAL": // find lori
 				if (!vars.metlori) { vars.metlori = true; return true; }
+				break;
+			case "CAB_TourmalineCU": // find tourmaline
+				if (!vars.tourmaline) { vars.tourmaline = true; return true; }
+				break;
+			case "CAM_CoinXCU": // get slug 7
+				if (!vars.slug7) { vars.slug7 = true; return true; }
 				break;
 			case "CAM_DuctTapeXCU": // get duct tape
 				if (!vars.tape) { vars.tape = true; return true; }
@@ -154,6 +232,9 @@ split
 			case "DIN_Hardy_CAL": // meet Hardy boys
 				if (!vars.hardys) { vars.hardys = true; return true; }
 				break;
+			case "DIN_ThurstonLetterOp": // find Thurston letter in engine car stove
+				if (!vars.thurston) { vars.thurston = true; return true; }
+				break;
 			case "JAK_CarbideOpn": // open up the carbide
 				if (!vars.carbide) { vars.carbide = true; return true; }
 				break;
@@ -163,6 +244,9 @@ split
 			case "JAK_LeapingLiz_PUZ": // start leaping lizards
 				if (!vars.llstart) { vars.llstart = true; return true; }
 				break;
+			case "JAK_Pipes_PUZ": // look at pipes puzzle in jake's car
+				if (!vars.jakepipes) { vars.jakepipes = true; return true; }
+				break;
 			case "JAK_TigersEye": // get tiger's eye
 				if (!vars.tigereye) { vars.tigereye = true; return true; }
 				break;
@@ -171,6 +255,9 @@ split
 				break;
 			case "JAK_Tino_HandOff_Pen": // get pen from Tino
 				if (!vars.pen) { vars.pen = true; return true; }
+				break;
+			case "JAK_Tino_HandOff_Tok": // get slug 3 from Tino
+				if (!vars.slug3) { vars.slug3 = true; return true; }
 				break;
 			case "LET_Map01ANIM_FIRST": // copper gorge map cutscene
 				if (!vars.cg) { vars.cg = true; return true; }
@@ -202,8 +289,14 @@ split
 			case "MUS_WaxPaperCU": // get wax paper
 				if (!vars.paper) { vars.paper = true; return true; }
 				break;
-			case "Pro_GemMachine_FIRST": // activate laser show
+			case "PRO_GemMachine_FIRST": // activate laser show
 				if (!vars.lasers) { vars.lasers = true; return true; }
+				break;
+			case "PRO_MapGetter_First": // solve map puzzle
+				if (!vars.map) { vars.map = true; return true; }
+				break;
+			case "PRO_MpCoinXCU": // get slug 8
+				if (!vars.slug8) { vars.slug8 = true; return true; }
 				break;
 			case "RES_CounterA": // ring the diner bell
 				vars.bell += 1;
@@ -211,6 +304,12 @@ split
 				break;
 			case "RES_CounterA_PUZ": // switch to Frank
 				if (!vars.frank) { vars.frank = true; return true; }
+				break;
+			case "SLE_BuelleNoteNight_": // Read Buell note from tile puzzle
+				if (!vars.tiledrawer) { vars.tiledrawer = true; return true; }
+				break;
+			case "SLE_IbexHeadPeridot": // look at Ibex head with peridot eye
+				if (!vars.peridot) { vars.peridot = true; return true; }
 				break;
 			case "SLE_Pipes_PUZ": // unlock quiet car pipe puzzle
 				if (!vars.quietpipes) { vars.quietpipes = true; return true; }
