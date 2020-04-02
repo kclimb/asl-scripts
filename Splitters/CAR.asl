@@ -2,9 +2,23 @@
 // Written by toburr
 // DM me at twitch.tv/toburr or on discord for questions/feedback
 
-state("Game")
+state("Game", "Steam")
 {
 	uint sceneval : 0x155F70;
+}
+
+state("Game", "TwoPack")
+{
+	uint sceneval : 0x154FF0;
+}
+
+init
+{
+	if (modules.First().ModuleMemorySize == 2142208) {
+		version = "Steam";
+	} else {
+		version = "TwoPack";
+	}
 }
 
 //update
@@ -18,7 +32,7 @@ startup
 {
 	// Initialize printer for debug statements
 	//Action<string> DebugOutput = (text) => {
-	//	print("[MHM Autosplitter] "+text);
+	//	print("[CAR Autosplitter] "+text);
 	//};
 	//vars.DebugOutput = DebugOutput;
 
