@@ -44,9 +44,8 @@ state("ze1","JPN")
 	//uint PuzzleIntro : 0x0;
 
 	uint all_escapes_start : 0xAA19AC;
-	uint aes_backup : 0xAA19AC;
 	uint aes_alt : 0xAA19AC;
-	uint aes_3 : 0xAA19AC;
+	uint aes_3 : 0xAA199C; // Unlike its English counterpart, this one is 4294901760 -> 4294901761
 	uint aes_4 : 0xAA19AC;
 
 	uint axeknife : 0x24A364;
@@ -95,14 +94,18 @@ init
             exeMD5HashBytes = md5.ComputeHash(s);
         }
     }
-  var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+  var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b).ToLower();
 
-	if (MD5Hash.ToLower() == "ededf843b7268d126b4e3b37e09d59bc") {
-		vars.DebugOutput("JPN detected!");
-		version = "JPN";
-	} else {
-		vars.DebugOutput("md5: "+MD5Hash);
-		version = "ENG";
+	switch (MD5Hash) {
+		case "ededf843b7268d126b4e3b37e09d59bc": // JPN ze1.exe md5 hash
+			version = "JPN";
+			break;
+		case "0118c6fd711622cc6be4396ba8ac1c8d": // ENG ze1.exe md5 hash
+			version = "ENG";
+			break;
+		default:
+			version = "ENG";
+			break;
 	}
 }
 
