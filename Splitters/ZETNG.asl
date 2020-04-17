@@ -109,42 +109,42 @@ init
 	}
 }
 
-update
-{
-	if (current.credits != old.credits) {
-		vars.DebugOutput("Current credits value: "+current.credits);
-	}
-  if (current.exitdoor != old.exitdoor) {
-    vars.DebugOutput("Current exitdoor: "+current.exitdoor);
-    if (current.exitdoor == 4220284815) {
-      vars.DebugOutput("At the Exit Door");
-    }
-  }
-  if (current.escape_state != old.escape_state) {
-    vars.DebugOutput("Current escape_state: "+current.escape_state);
-  }
-  if (current.gamestart != old.gamestart) {
-    vars.DebugOutput("Current gamestart: "+current.gamestart);
-    if (old.gamestart == 23 && current.gamestart == 1) {
-      vars.DebugOutput("Start timer trigger");
-    }
-  }
-	if (current.foundit != old.foundit) {
-		if (current.foundit == 808530015) {
-			vars.DebugOutput("You found it! From "+old.foundit);
-		}
-		vars.DebugOutput("Current foundit: "+current.foundit);
-	}
-	if (current.axeknife == 842030960 && current.axeknife != old.axeknife) {
-		vars.DebugOutput("Knifed!!!");
-	}
-	if (settings["ze1AllEscapes"] && current.all_escapes_start != old.all_escapes_start) {
-		vars.DebugOutput("All Escapes start value: "+current.all_escapes_start);
-	}
-	if (current.in_room != old.in_room) {
-		vars.DebugOutput("In-room val: "+current.in_room);
-	}
-}
+//update
+//{
+//	if (current.credits != old.credits) {
+//		vars.DebugOutput("Current credits value: "+current.credits);
+//	}
+//  if (current.exitdoor != old.exitdoor) {
+//    vars.DebugOutput("Current exitdoor: "+current.exitdoor);
+//    if (current.exitdoor == 4220284815) {
+//      vars.DebugOutput("At the Exit Door");
+//    }
+//  }
+//  if (current.escape_state != old.escape_state) {
+//    vars.DebugOutput("Current escape_state: "+current.escape_state);
+//  }
+//  if (current.gamestart != old.gamestart) {
+//    vars.DebugOutput("Current gamestart: "+current.gamestart);
+//    if (old.gamestart == 23 && current.gamestart == 1) {
+//      vars.DebugOutput("Start timer trigger");
+//    }
+//  }
+//	if (current.foundit != old.foundit) {
+//		if (current.foundit == 808530015) {
+//			vars.DebugOutput("You found it! From "+old.foundit);
+//		}
+//		vars.DebugOutput("Current foundit: "+current.foundit);
+//	}
+//	if (current.axeknife == 842030960 && current.axeknife != old.axeknife) {
+//		vars.DebugOutput("Knifed!!!");
+//	}
+//	if (settings["ze1AllEscapes"] && current.all_escapes_start != old.all_escapes_start) {
+//		vars.DebugOutput("All Escapes start value: "+current.all_escapes_start);
+//	}
+//	if (current.in_room != old.in_room) {
+//		vars.DebugOutput("In-room val: "+current.in_room);
+//	}
+//}
 
 start // gamestart goes from something (usually 315-321ish) to 4 if we don't create a new game save, 5 if we do
 {
@@ -153,7 +153,7 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 	vars.numEndings = 0;
 	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
 		//vars.numRoomsEscaped = 0;
-		vars.DebugOutput("gamestart: "+current.gamestart);
+		//vars.DebugOutput("gamestart: "+current.gamestart);
 		vars.category = 1;
 		return true;
 	}
