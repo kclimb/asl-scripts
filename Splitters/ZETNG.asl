@@ -39,7 +39,19 @@ state("ze1","ENG")
 
 state("ze1","JPN")
 {
+	//uint AllSkip : 0x0;
+	//uint Decision : 0x0;
+	//uint PuzzleIntro : 0x0;
 
+	//uint all_escapes_start : 0x0;
+	//uint aes_backup : 0x0;
+	//uint aes_alt : 0x0;
+	//uint aes_3 : 0x0;
+	//uint aes_4 : 0x0;
+
+	//uint foundit : 0x0;
+	//uint foundit2 : 0x0;
+	//uint in_room : 0x0;
 }
 
 isLoading
@@ -54,7 +66,7 @@ startup
 		print("[999 Autosplitter] "+text);
 	};
 	vars.DebugOutput = DebugOutput;
-	vars.cateogry = 0;
+	vars.category = 0;
 
   // Autosplitter settings
 	// Includes 999 categories and VLR categories
@@ -63,6 +75,28 @@ startup
   // settings end
 
   vars.DebugOutput("Startup success");
+}
+
+init
+{
+	// Handy hash code stolen from CptBrian's RotN autosplitter
+	byte[] exeMD5HashBytes = new byte[0];
+    using (var md5 = System.Security.Cryptography.MD5.Create())
+    {
+        using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        {
+            exeMD5HashBytes = md5.ComputeHash(s);
+        }
+    }
+  var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+
+	if (MD5Hash.ToLower() == "ededf843b7268d126b4e3b37e09d59bc") {
+		vars.DebugOutput("JPN detected!");
+		version = "JPN";
+	} else {
+		vars.DebugOutput("md5: "+MD5Hash);
+		version = "ENG";
+	}
 }
 
 update
@@ -109,6 +143,7 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 	vars.numEndings = 0;
 	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
 		//vars.numRoomsEscaped = 0;
+		vars.DebugOutput("gamestart: "+current.gamestart);
 		vars.category = 1;
 		return true;
 	}
