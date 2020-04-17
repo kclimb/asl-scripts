@@ -39,19 +39,26 @@ state("ze1","ENG")
 
 state("ze1","JPN")
 {
-	//uint AllSkip : 0x0;
+	uint AllSkip : 0x0;
 	//uint Decision : 0x0;
 	//uint PuzzleIntro : 0x0;
 
-	//uint all_escapes_start : 0x0;
-	//uint aes_backup : 0x0;
-	//uint aes_alt : 0x0;
-	//uint aes_3 : 0x0;
-	//uint aes_4 : 0x0;
+	uint all_escapes_start : 0xAA19AC;
+	uint aes_backup : 0xAA19AC;
+	uint aes_alt : 0xAA19AC;
+	uint aes_3 : 0xAA19AC;
+	uint aes_4 : 0xAA19AC;
 
-	//uint foundit : 0x0;
-	//uint foundit2 : 0x0;
-	//uint in_room : 0x0;
+	uint axeknife : 0x24A364;
+	uint credits : 0x19943C;
+	uint escape_state : 0x244DC8;
+	uint exitdoor : 0x199220;
+
+	uint gamestart : 0x26B668;
+
+	uint foundit : 0x0;
+	uint foundit2 : 0x0;
+	uint in_room : 0x19935C;
 }
 
 isLoading
