@@ -161,11 +161,11 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 {
 	vars.category = 0;
 	vars.oproom = false;
-	vars.numEndings = 0;
 	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart && old.gamestart > 0) { // last condition prevents starting the timer at game boot
 		//vars.numRoomsEscaped = 0;
 		//vars.DebugOutput("gamestart: "+current.gamestart+"; "+old.gamestart);
 		vars.category = 1;
+		vars.numEndings = 0;
 		return true;
 	}
 
@@ -185,25 +185,35 @@ split
 		// ----------------
 		// Credits handling
 		// ----------------
+		// Instead of the end-specific values (preserved below in case I ever need them again), just check if the credits value is in the right ballpark
+		if (current.credits > 8000000 && current.credits != old.credits) {
+			vars.numEndings += 1;
+			if (vars.numEndings < 5) return true;
+		}
 		// True end
-	  if (current.credits == 8198272 && current.credits != old.credits) {
-			vars.numEndings += 1;
-			if (vars.numEndings < 5) return true;
-		}
+	  //if (current.credits == 8198272 && current.credits != old.credits) {
+		//	vars.numEndings += 1;
+		//	vars.DebugOutput("numEndings is "+vars.numEndings);
+		//	if (vars.numEndings < 5) return true;
+		//}
 		// Safe end
-		if (current.credits == 8108064 && current.credits != old.credits) {
-			vars.numEndings += 1;
-			if (vars.numEndings < 5) return true;
-		}
+		//if (current.credits == 8108064 && current.credits != old.credits) {
+		//	vars.numEndings += 1;
+		//	vars.DebugOutput("numEndings is "+vars.numEndings);
+		//	if (vars.numEndings < 5) return true;
+		//}
 		// Sub end
-		if (current.credits == 8142368 && current.credits != old.credits) {
-			vars.numEndings += 1;
-			if (vars.numEndings < 5) return true;
-		}
+		//if (current.credits == 8142368 && current.credits != old.credits) {
+		//	vars.numEndings += 1;
+		//	vars.DebugOutput("numEndings is "+vars.numEndings);
+		//	if (vars.numEndings < 5) return true;
+		//}
+
 		// Axe/Knife ending
 		if ((current.axeknife == 842030960 && old.axeknife != current.axeknife) ) {
 			vars.numEndings += 1;
-			vars.DebugOutput("At axe/knife end");
+			//vars.DebugOutput("At axe/knife end");
+			//vars.DebugOutput("numEndings is "+vars.numEndings);
 			if (vars.numEndings < 5) return true;
 		}
 		// If we've seen every ending, don't split til we do the last postgame save
