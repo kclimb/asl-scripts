@@ -60,6 +60,16 @@ state("ze1","JPN")
 	uint in_room : 0x19935C;
 }
 
+state("ze2", "ENG")
+{
+
+}
+
+state("ze2", "JPN")
+{
+
+}
+
 isLoading
 {
 	return current.credits == 0 && ((current.AllSkip == 2 && current.Decision == 1 && current.foundit2 != 1684078848) || (current.AllSkip == 0 && current.PuzzleIntro == 9));
@@ -101,9 +111,10 @@ init
 			version = "JPN";
 			break;
 		case "0118c6fd711622cc6be4396ba8ac1c8d": // ENG ze1.exe md5 hash
+		case "448496fd1e52805b802a5d1160f023fe": // ENG ze2.exe md5 hash
 			version = "ENG";
 			break;
-		default:
+		default: // Any other hash. This should probably be some error state to disable autosplitting on an invalid game, but we're defaulting to English cause I'm lazy
 			version = "ENG";
 			break;
 	}
@@ -151,9 +162,9 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 	vars.category = 0;
 	vars.oproom = false;
 	vars.numEndings = 0;
-	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart) {
+	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart && old.gamestart > 0) { // last condition prevents starting the timer at game boot
 		//vars.numRoomsEscaped = 0;
-		//vars.DebugOutput("gamestart: "+current.gamestart);
+		//vars.DebugOutput("gamestart: "+current.gamestart+"; "+old.gamestart);
 		vars.category = 1;
 		return true;
 	}
