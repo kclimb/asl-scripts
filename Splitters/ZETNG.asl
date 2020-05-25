@@ -86,7 +86,7 @@ startup
 
   // Autosplitter settings
 	// Includes 999 categories and VLR categories
-	settings.Add("ze1Full",true,"999 Any%/All Endings");
+	settings.Add("ze1Full",true,"999 Full Game (any run that achieves an ending)");
 	settings.Add("ze1AllEscapes", false, "999 All Escapes");
   // settings end
 
