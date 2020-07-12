@@ -87,6 +87,7 @@ startup
   // Autosplitter settings
 	// Includes 999 categories and VLR categories
 	settings.Add("ze1Full",true,"999 Full Game (any run that achieves an ending)");
+	settings.Add("ze1FullEscape",true,"Split on finishing an escape room","ze1Full");
 	settings.Add("ze1AllEscapes", false, "999 All Escapes");
   // settings end
 
@@ -221,25 +222,27 @@ split
 			return true;
 		}
 
-	  // ------------------------------
-		// Special cases for escape rooms
-		// ------------------------------
-		// Operating Room
-		if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
-			vars.oproom = true;
-			//vars.numRoomsEscaped += 1;
-			return true;
-		}
-
-		// ------------------------------------------------------
-		// Most common escape room case: the You Found It! screen
-		// ------------------------------------------------------
-		if (current.foundit == 808530015 && current.foundit != old.foundit) {
-			if (current.escape_state == 1131741184) {
+		if (settings["ze1FullEscape"]) {
+		  // ------------------------------
+			// Special cases for escape rooms
+			// ------------------------------
+			// Operating Room
+			if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
 				vars.oproom = true;
+				//vars.numRoomsEscaped += 1;
+				return true;
 			}
-			//vars.numRoomsEscaped += 1;
-			return true;
+
+			// ------------------------------------------------------
+			// Most common escape room case: the You Found It! screen
+			// ------------------------------------------------------
+			if (current.foundit == 808530015 && current.foundit != old.foundit) {
+				if (current.escape_state == 1131741184) {
+					vars.oproom = true;
+				}
+				//vars.numRoomsEscaped += 1;
+				return true;
+			}
 		}
 	}
 
