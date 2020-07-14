@@ -35,6 +35,7 @@ state("ze1","ENG")
 
 	uint linecounterquestionmark : 0x18AF54; // It looks like it counts which line of dialog you're on in a given batch of them. Resets at unintuitive moments though
 	uint in_room : 0x19935C; // Gets set to 65536+ after puzzle intro finishes, goes to 0 when back on memories menu
+	uint in_room_alt : 0x3B6188; // Gets set to 67233 after puzzle intro finishes, goes to 65536 when back on memories menu
 }
 
 state("ze1","JPN")
@@ -251,7 +252,7 @@ split
 	// ----------------
 	if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
 		// Split once we're back on the menu
-		if (current.in_room != old.in_room && current.in_room == 0) {
+		if ((current.in_room != old.in_room && current.in_room == 0) || (current.in_room_alt != old.in_room_alt && current.in_room_alt == 65536)) {
 			return true;
 		}
 	}
