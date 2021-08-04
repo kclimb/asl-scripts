@@ -2,7 +2,7 @@
 // Written by toburr
 // DM me at twitch.tv/toburr or on discord for questions/feedback
 
-state("Game")
+state("Game", "Steam")
 {
   // Start/End of run
   uint start : 0x18A944;
@@ -45,14 +45,67 @@ state("Game")
   uint jigsawEnd : 0x1876F0; // Event 980
   uint pipes : 0x18773C; // Event 999
   uint seedEnd : 0x187748; // Event 1002
+  uint elinor : 0x18774C; // Event 1003
   uint waterLock : 0x187784; // Event 1017
   uint wordWall : 0x187788; // Event 1018
-  uint elinor : 0x18774C; // Event 1003
   uint windsStart : 0x187810; // Event 1052
   uint ineedakey : 0x187828; // Event 1058
   uint ghostsStart : 0x18783C; // Event 1063
   uint frogStart : 0x187840; // Event 1064
   uint seedStart : 0x187880; // Event 1080
+}
+
+state("Game", "Disc")
+{
+  // Start/End of run
+  uint start : 0x189994;
+  uint end : 0x189E44;
+
+  // Item Pickups
+  uint corbinCoat : 0x182C2C; // Item 2
+  uint cricketBall : 0x182C30; // Item 3
+  uint glowstick : 0x182C34; // Item 4
+  uint deadGlowstick : 0x182C38; // Item 5
+  uint jupiter : 0x182C3C; // Item 6
+  uint dragonKey : 0x182C40; // Item 7
+  uint mars : 0x182C44; // Item 8
+  uint mercury : 0x182C48; // Item 9
+  uint moon : 0x182C50; // Item 11
+  uint lens : 0x182C54; // Item 12
+  uint glowstone : 0x182C58; // Item 13. Use deadGlowstick for splitting on getting the stone!
+  uint saturn : 0x182C64; // Item 16
+  uint badcadee : 0x182C68; // Item 17
+  uint venus : 0x182C70; // Item 19
+  uint crank : 0x182C74; // Item 20
+  uint butter : 0x182C88; // Item 25
+
+  // Events
+  uint jigsawStart : 0x185CC8; // Event 310
+  uint startBul : 0x185D34; // Event 337
+  uint petroStart : 0x185E50; // Event 408
+  uint magicWord : 0x185F3C; // Event 467
+  uint meetEthel : 0x1860B8; // Event 562
+  uint bettyStart : 0x186424; // Event 781
+  uint seeFireLock : 0x186490; // Event 808
+  uint sawCorbinPortrait : 0x18656C; // Event 863
+  uint ouroboros : 0x186658; // Event 922
+  uint ritual : 0x1866B0; // Event 944
+  uint ghostsEnd : 0x1866E8; // Event 958
+  uint windsEnd : 0x1866EC; // Event 959
+  uint alchemy : 0x1866F0; // Event 960
+  uint nigelYelp : 0x186704; // Event 965
+  uint litForge : 0x186724; // Event 973
+  uint jigsawEnd : 0x186740; // Event 980
+  uint pipes : 0x18678C; // Event 999
+  uint seedEnd : 0x186798; // Event 1002
+  uint elinor : 0x18679C; // Event 1003
+  uint waterLock : 0x1867D4; // Event 1017
+  uint wordWall : 0x1867D8; // Event 1018
+  uint windsStart : 0x186860; // Event 1052
+  uint ineedakey : 0x186878; // Event 1058
+  uint ghostsStart : 0x18688C; // Event 1063
+  uint frogStart : 0x186890; // Event 1064
+  uint seedStart : 0x1868D0; // Event 1080
 }
 
 startup
@@ -110,6 +163,12 @@ startup
 // Comment out this function when not debugging
 init
 {
+  if (modules.First().ModuleMemorySize == 2736128) {
+    version = "Steam";
+  } else if (modules.First().ModuleMemorySize == 2379776) {
+    version = "Disc";
+  }
+
 	vars.DebugOutput("Initialized");
   vars.done = false;
 }
