@@ -165,7 +165,7 @@ init
 {
   if (modules.First().ModuleMemorySize == 2736128) {
     version = "Steam";
-  } else if (modules.First().ModuleMemorySize == 2379776) {
+  } else { // if (modules.First().ModuleMemorySize == 2379776)
     version = "Disc";
   }
 
