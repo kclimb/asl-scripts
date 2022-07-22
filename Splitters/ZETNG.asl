@@ -63,7 +63,9 @@ state("ze1","JPN")
 
 state("ze2", "ENG")
 {
-
+	uint tufui : 0x5507F4; // changes to 15 at the Tu Fui, Ego Eres text denoting the end of any%/ACE; changes to 440 at disclaimer at game's beginning
+	uint foundit : 0x5510A8; // changes to 2 during the cutscene at the start and end of an escape room
+	uint charend : 0x57DB30; // changes to 990414985 when ending/game over text appears
 }
 
 state("ze2", "JPN")
@@ -73,7 +75,9 @@ state("ze2", "JPN")
 
 isLoading
 {
-	return current.credits == 0 && ((current.AllSkip == 2 && current.Decision == 1 && current.foundit2 != 1684078848) || (current.AllSkip == 0 && current.PuzzleIntro == 9));
+	if (vars.game == 0) {
+		return current.credits == 0 && ((current.AllSkip == 2 && current.Decision == 1 && current.foundit2 != 1684078848) || (current.AllSkip == 0 && current.PuzzleIntro == 9));
+	}
 }
 
 startup
@@ -87,10 +91,14 @@ startup
 
   // Autosplitter settings
 	// Includes 999 categories and VLR categories
-	settings.Add("ze1Full",true,"999 Full Game (any run that achieves an ending)");
+	settings.Add("ze1",true,"999 Settings");
+	settings.Add("ze1Full",true,"Full Game (any run that achieves an ending)","ze1");
 	settings.Add("ze1FullEscape",true,"Split on finishing an escape room","ze1Full");
-	settings.Add("ze1AllEscapes", false, "999 All Escapes");
-  // settings end
+	settings.Add("ze1AllEscapes", false, "All Escapes","ze1");
+	settings.Add("ze2",true,"VLR Settings");
+	settings.Add("ze2TuFui",true, "Split on \"Tu fui, ego eris\" in Phi's end","ze2");
+	settings.Add("ze2Escape",true, "Split on finishing an escape room","ze2");
+	// settings end
 
   vars.DebugOutput("Startup success");
 }
@@ -111,184 +119,241 @@ init
 	switch (MD5Hash) {
 		case "ededf843b7268d126b4e3b37e09d59bc": // JPN ze1.exe md5 hash
 			version = "JPN";
+			vars.game = 0;
 			break;
 		case "0118c6fd711622cc6be4396ba8ac1c8d": // ENG ze1.exe md5 hash
+			version = "JPN";
+			vars.game = 0;
+			break;
 		case "448496fd1e52805b802a5d1160f023fe": // ENG ze2.exe md5 hash
 			version = "ENG";
+			vars.game = 1;
+			vars.cs = 0;
 			break;
-		default: // Any other hash. This should probably be some error state to disable autosplitting on an invalid game, but we're defaulting to English cause I'm lazy
-			version = "ENG";
+		default: // Any other hash. This should probably be some error state to disable autosplitting on an invalid game, but we're defaulting to VLR JP cause I'm lazy
+			version = "JPN";
+			vars.game = 1;
+			vars.cs = 0;
 			break;
 	}
 }
 
-//update
-//{
-//	if (current.credits != old.credits) {
-//		vars.DebugOutput("Current credits value: "+current.credits);
-//	}
-//  if (current.exitdoor != old.exitdoor) {
-//    vars.DebugOutput("Current exitdoor: "+current.exitdoor);
-//    if (current.exitdoor == 4220284815) {
-//      vars.DebugOutput("At the Exit Door");
-//    }
-//  }
-//  if (current.escape_state != old.escape_state) {
-//    vars.DebugOutput("Current escape_state: "+current.escape_state);
-//  }
-//  if (current.gamestart != old.gamestart) {
-//    vars.DebugOutput("Current gamestart: "+current.gamestart);
-//    if (old.gamestart == 23 && current.gamestart == 1) {
-//      vars.DebugOutput("Start timer trigger");
-//    }
-//  }
-//	if (current.foundit != old.foundit) {
-//		if (current.foundit == 808530015) {
-//			vars.DebugOutput("You found it! From "+old.foundit);
-//		}
-//		vars.DebugOutput("Current foundit: "+current.foundit);
-//	}
-//	if (current.axeknife == 842030960 && current.axeknife != old.axeknife) {
-//		vars.DebugOutput("Knifed!!!");
-//	}
-//	if (settings["ze1AllEscapes"] && current.all_escapes_start != old.all_escapes_start) {
-//		vars.DebugOutput("All Escapes start value: "+current.all_escapes_start);
-//	}
-//	if (current.in_room != old.in_room) {
-//		vars.DebugOutput("In-room val: "+current.in_room);
-//	}
-//}
+update
+{
+	if (vars.game == 0) {
+		if (current.credits != old.credits) {
+			vars.DebugOutput("Current credits value: "+current.credits);
+		}
+	  if (current.exitdoor != old.exitdoor) {
+	    vars.DebugOutput("Current exitdoor: "+current.exitdoor);
+	    if (current.exitdoor == 4220284815) {
+	      vars.DebugOutput("At the Exit Door");
+	    }
+	  }
+	  if (current.escape_state != old.escape_state) {
+	    vars.DebugOutput("Current escape_state: "+current.escape_state);
+	  }
+	  if (current.gamestart != old.gamestart) {
+	    vars.DebugOutput("Current gamestart: "+current.gamestart);
+	    if (old.gamestart == 23 && current.gamestart == 1) {
+	      vars.DebugOutput("Start timer trigger");
+	    }
+	  }
+		if (current.foundit != old.foundit) {
+			if (current.foundit == 808530015) {
+				vars.DebugOutput("You found it! From "+old.foundit);
+			}
+			vars.DebugOutput("Current foundit: "+current.foundit);
+		}
+		if (current.axeknife == 842030960 && current.axeknife != old.axeknife) {
+			vars.DebugOutput("Knifed!!!");
+		}
+		if (settings["ze1AllEscapes"] && current.all_escapes_start != old.all_escapes_start) {
+			vars.DebugOutput("All Escapes start value: "+current.all_escapes_start);
+		}
+		if (current.in_room != old.in_room) {
+			vars.DebugOutput("In-room val: "+current.in_room);
+		}
+	} else if (vars.game == 1) {
+		if (current.tufui == 15 && old.tufui != 15) {
+			vars.DebugOutput("Tombstone bois");
+		}
+		if (current.tufui == 440 && old.tufui != 440) {
+			vars.DebugOutput("Timer start");
+		}
+		if (current.foundit == 2 && old.foundit !=2) {
+			vars.DebugOutput("Escape start/end");
+		}
+		if (current.charend == 990414985 && old.charend != current.charend) {
+			vars.DebugOutput("Generic ending");
+		}
+	}
+}
 
 start // gamestart goes from something (usually 315-321ish) to 4 if we don't create a new game save, 5 if we do
 {
-	vars.category = 0;
-	vars.oproom = false;
-	if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart && old.gamestart > 0) { // last condition prevents starting the timer at game boot
-		//vars.numRoomsEscaped = 0;
-		//vars.DebugOutput("gamestart: "+current.gamestart+"; "+old.gamestart);
-		vars.category = 1;
-		vars.numEndings = 0;
-		return true;
-	}
+	if (vars.game == 0) {
+		vars.category = 0;
+		vars.oproom = false;
+		if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart && old.gamestart > 0) { // last condition prevents starting the timer at game boot
+			//vars.numRoomsEscaped = 0;
+			//vars.DebugOutput("gamestart: "+current.gamestart+"; "+old.gamestart);
+			vars.category = 1;
+			vars.numEndings = 0;
+			return true;
+		}
 
-	if (settings["ze1AllEscapes"] && ((current.all_escapes_start - old.all_escapes_start == 2) || (current.aes_alt - old.aes_alt == 2) || (current.aes_3 - old.aes_3 == 1) || (current.aes_4 - old.aes_4 == 2))) {
-		//vars.numRoomsEscaped = 0;
-		vars.category = 2;
-		return true;
+		if (settings["ze1AllEscapes"] && ((current.all_escapes_start - old.all_escapes_start == 2) || (current.aes_alt - old.aes_alt == 2) || (current.aes_3 - old.aes_3 == 1) || (current.aes_4 - old.aes_4 == 2))) {
+			//vars.numRoomsEscaped = 0;
+			vars.category = 2;
+			return true;
+		}
+	} else if (vars.game == 1) {
+	  if (current.tufui == 440 && current.tufui != old.tufui) {
+			vars.cs = 0;
+	    return true;
+	  }
 	}
 }
 
 split
 {
-	// -------------
-	// Fullgame runs
-	// -------------
-	if (vars.category == 1 || (vars.category == 0 && settings["ze1Full"])) {
-		// ----------------
-		// Credits handling
-		// ----------------
-		// Instead of the end-specific values (preserved below in case I ever need them again), just check if the credits value is in the right ballpark
-		if (current.credits > 8000000 && current.credits != old.credits) {
-			vars.numEndings += 1;
-			if (vars.numEndings < 5) return true;
-		}
-		// True end
-	  //if (current.credits == 8198272 && current.credits != old.credits) {
-		//	vars.numEndings += 1;
-		//	vars.DebugOutput("numEndings is "+vars.numEndings);
-		//	if (vars.numEndings < 5) return true;
-		//}
-		// Safe end
-		//if (current.credits == 8108064 && current.credits != old.credits) {
-		//	vars.numEndings += 1;
-		//	vars.DebugOutput("numEndings is "+vars.numEndings);
-		//	if (vars.numEndings < 5) return true;
-		//}
-		// Sub end
-		//if (current.credits == 8142368 && current.credits != old.credits) {
-		//	vars.numEndings += 1;
-		//	vars.DebugOutput("numEndings is "+vars.numEndings);
-		//	if (vars.numEndings < 5) return true;
-		//}
+	// -----------------
+	// Fullgame 999 runs
+	// -----------------
+	if (vars.game == 0) {
+		if (vars.category == 1 || (vars.category == 0 && settings["ze1Full"])) {
+			// ----------------
+			// Credits handling
+			// ----------------
+			// Instead of the end-specific values (preserved below in case I ever need them again), just check if the credits value is in the right ballpark
+			if (current.credits > 8000000 && current.credits != old.credits) {
+				vars.numEndings += 1;
+				if (vars.numEndings < 5) return true;
+			}
+			// True end
+		  //if (current.credits == 8198272 && current.credits != old.credits) {
+			//	vars.numEndings += 1;
+			//	vars.DebugOutput("numEndings is "+vars.numEndings);
+			//	if (vars.numEndings < 5) return true;
+			//}
+			// Safe end
+			//if (current.credits == 8108064 && current.credits != old.credits) {
+			//	vars.numEndings += 1;
+			//	vars.DebugOutput("numEndings is "+vars.numEndings);
+			//	if (vars.numEndings < 5) return true;
+			//}
+			// Sub end
+			//if (current.credits == 8142368 && current.credits != old.credits) {
+			//	vars.numEndings += 1;
+			//	vars.DebugOutput("numEndings is "+vars.numEndings);
+			//	if (vars.numEndings < 5) return true;
+			//}
 
-		// Axe/Knife ending
-		if ((current.axeknife == 842030960 && old.axeknife != current.axeknife) ) {
-			vars.numEndings += 1;
-			//vars.DebugOutput("At axe/knife end");
-			//vars.DebugOutput("numEndings is "+vars.numEndings);
-			if (vars.numEndings < 5) return true;
-		}
-		// If we've seen every ending, don't split til we do the last postgame save
-		if (vars.numEndings > 4 && current.postgame_save == 1330511872 && current.postgame_save != old.postgame_save) {
-			return true;
-		}
-
-		if (settings["ze1FullEscape"]) {
-		  // ------------------------------
-			// Special cases for escape rooms
-			// ------------------------------
-			// Operating Room
-			if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
-				vars.oproom = true;
-				//vars.numRoomsEscaped += 1;
+			// Axe/Knife ending
+			if ((current.axeknife == 842030960 && old.axeknife != current.axeknife) ) {
+				vars.numEndings += 1;
+				//vars.DebugOutput("At axe/knife end");
+				//vars.DebugOutput("numEndings is "+vars.numEndings);
+				if (vars.numEndings < 5) return true;
+			}
+			// If we've seen every ending, don't split til we do the last postgame save
+			if (vars.numEndings > 4 && current.postgame_save == 1330511872 && current.postgame_save != old.postgame_save) {
 				return true;
 			}
 
-			// ------------------------------------------------------
-			// Most common escape room case: the You Found It! screen
-			// ------------------------------------------------------
-			if (current.foundit == 808530015 && current.foundit != old.foundit) {
-				if (current.escape_state == 1131741184) {
+			if (settings["ze1FullEscape"]) {
+			  // ------------------------------
+				// Special cases for escape rooms
+				// ------------------------------
+				// Operating Room
+				if (current.operating_room == 1819042120 && current.escape_state == 1131741184 && !vars.oproom) {
 					vars.oproom = true;
+					//vars.numRoomsEscaped += 1;
+					return true;
 				}
-				//vars.numRoomsEscaped += 1;
+
+				// ------------------------------------------------------
+				// Most common escape room case: the You Found It! screen
+				// ------------------------------------------------------
+				if (current.foundit == 808530015 && current.foundit != old.foundit) {
+					if (current.escape_state == 1131741184) {
+						vars.oproom = true;
+					}
+					//vars.numRoomsEscaped += 1;
+					return true;
+				}
+			}
+		}
+
+		// ----------------
+		// All Escapes runs
+		// ----------------
+		if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
+			// Split once we're back on the menu
+			if ((current.in_room != old.in_room && current.in_room == 0) || (current.in_room_alt != old.in_room_alt && current.in_room_alt == 65536)) {
 				return true;
 			}
 		}
-	}
 
-	// ----------------
-	// All Escapes runs
-	// ----------------
-	if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
-		// Split once we're back on the menu
-		if ((current.in_room != old.in_room && current.in_room == 0) || (current.in_room_alt != old.in_room_alt && current.in_room_alt == 65536)) {
+		// Old code I'm keeping in case the above doesn't end up working
+		//uint s = current.escape_state;
+		//switch (s) {
+	  //  case 1130692608:
+	  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
+	  //      vars.DebugOutput("3rd class cabin escape");
+	  //    }
+	  //    break;
+	  //  case 1134723072:
+	  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
+	  //      vars.DebugOutput("1st class cabin escape");
+	  //    }
+	  //    break;
+	  //  case 1125449728:
+	  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
+	  //      vars.DebugOutput("Casino escape");
+	  //    }
+	  //    break;
+	  //  case 1128595456:
+	  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
+	  //      vars.DebugOutput("Laboratory escape");
+	  //    }
+	  //    break;
+		//	case 1143029760: // Engine room's a little weird in that we don't exit this room by clicking on the door, so we get hacky
+		//		if (current.exitdoor == 3449289875) {
+		//			if (current.exitdoor != old.exitdoor || current.escape_state != old.escape_state) {
+		//				vars.DebugOutput("Engine room door/state combo");
+		//			}
+		//			if (current.foundit == 1769497951 && current.foundit != old.foundit) {
+		//				vars.DebugOutput ("Engine Room escape");
+		//			}
+		//		}
+		//		break;
+	  //}
+		//--------------
+		// VLR Splitting
+		//--------------
+	} else if (vars.game == 1) {
+		//-----------------
+		// Tu fui, ego eris
+		//-----------------
+		if (current.tufui == 15 && old.tufui != current.tufui) {
+			return true;
+		}
+
+		//------------
+		// Escape Room
+		//------------
+		if (current.foundit == 2 && current.foundit != old.foundit) {
+			vars.cs += 1;
+			if (vars.cs % 2 == 0) return true;
+		}
+
+		//------------------
+		// Character Endings
+		//------------------
+		if (current.charend == 990414985 && current.charend != old.charend) {
 			return true;
 		}
 	}
-
-	// Old code I'm keeping in case the above doesn't end up working
-	//uint s = current.escape_state;
-	//switch (s) {
-  //  case 1130692608:
-  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
-  //      vars.DebugOutput("3rd class cabin escape");
-  //    }
-  //    break;
-  //  case 1134723072:
-  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
-  //      vars.DebugOutput("1st class cabin escape");
-  //    }
-  //    break;
-  //  case 1125449728:
-  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
-  //      vars.DebugOutput("Casino escape");
-  //    }
-  //    break;
-  //  case 1128595456:
-  //    if (current.escape_state != old.escape_state && current.exitdoor == 4220284815) {
-  //      vars.DebugOutput("Laboratory escape");
-  //    }
-  //    break;
-	//	case 1143029760: // Engine room's a little weird in that we don't exit this room by clicking on the door, so we get hacky
-	//		if (current.exitdoor == 3449289875) {
-	//			if (current.exitdoor != old.exitdoor || current.escape_state != old.escape_state) {
-	//				vars.DebugOutput("Engine room door/state combo");
-	//			}
-	//			if (current.foundit == 1769497951 && current.foundit != old.foundit) {
-	//				vars.DebugOutput ("Engine Room escape");
-	//			}
-	//		}
-	//		break;
-  //}
 }
