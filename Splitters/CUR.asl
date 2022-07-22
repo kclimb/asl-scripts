@@ -8,6 +8,9 @@ state("Game", "Steam")
   uint start : 0x18A944;
 	uint end : 0x18ADF4;
 
+  // RNG address. Not used for autosplitting but a useful address to document
+  uint rng : 0x167764, 0x34;
+
   // Item Pickups
   uint corbinCoat : 0x183BDC; // Item 2
   uint cricketBall : 0x183BE0; // Item 3
