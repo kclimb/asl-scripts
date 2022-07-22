@@ -1,16 +1,18 @@
-// Stay Tuned for Danger Autosplitter WIP
+// Stay Tuned for Danger Autosplitter
 // Written by toburr
 // DM me at twitch.tv/toburr or on discord for questions/feedback
 
 state("Game")
 {
 	uint sceneval : 0x114DAC;
+	int rng : 0x17FC8, 0x44, 0x30, 0x150, 0x0, 0x18, 0xBFC, 0x2AC, 0x14;
 }
 
 update
 {
   if (current.sceneval != old.sceneval) {
     vars.DebugOutput("Sceneval changed: "+current.sceneval);
+		vars.DebugOutput("Rng: "+current.rng);
   }
 }
 
