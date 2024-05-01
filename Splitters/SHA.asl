@@ -2,9 +2,14 @@
 // Written by toburr
 // DM me at twitch.tv/toburr or on discord for questions/feedback
 
-state("Game")
+state("Game", "Steam")
 {
 	uint sceneval : 0x1AE968;
+}
+
+state("Game", "Disc")
+{
+	uint sceneval : 0x1AD9E8;
 }
 
 startup
@@ -56,6 +61,15 @@ startup
 	// settings end
 
 	//vars.DebugOutput("Startup success");
+}
+
+init
+{
+	if (modules.First().ModuleMemorySize == 2269184) {
+		version = "Steam";
+	} else { // if (modules.First().ModuleMemorySize == 2265088)
+		version = "Disc";
+	}
 }
 
 start
