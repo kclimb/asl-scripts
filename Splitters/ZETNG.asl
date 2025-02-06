@@ -23,7 +23,7 @@ state("ze1","ENG")
 
 	uint axeknife : 0x24A364; // 24 for axe and knife endings
 	uint credits : 0x19943C; // Credits tracker. Is non-zero while credits are happening
-  uint escape_state : 0x244DC8; // IDK what this does but it seems to reuse values very rarely, which is useful
+  	uint escape_state : 0x244DC8; // IDK what this does but it seems to reuse values very rarely, which is useful
 	uint exitdoor : 0x199220; // Seems to always be 4220284815 whenever you A) finish a room (good!) or B) briefly when you move towards the escape room door (not good!). So a necessary but not sufficient condition.
 	uint foundit : 0x2448D0; // UPDATE: this var might go x -> 808530015 (x=1769497951 for casino, lab, engine, and cargo; x=811562089 for 3rd class cabin and 2nd class cabin) for every escape? (original comment: 1970631775 -> 1769497951 when exiting engine room (addresses 0x2448D4 and 0x2448D8 look usable too))
 	uint foundit2 : 0x273EB4; // Value that changes during the entirety of you found it screens (1684078848 -> 1684078849), needed to unpause during oproom you found it
@@ -114,7 +114,8 @@ init
             exeMD5HashBytes = md5.ComputeHash(s);
         }
     }
-  var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b).ToLower();
+	var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b).ToLower();
+	vars.DebugOutput(MD5Hash.ToString());
 
 	switch (MD5Hash) {
 		case "ededf843b7268d126b4e3b37e09d59bc": // JPN ze1.exe md5 hash
@@ -122,7 +123,7 @@ init
 			vars.game = 0;
 			break;
 		case "0118c6fd711622cc6be4396ba8ac1c8d": // ENG ze1.exe md5 hash
-			version = "JPN";
+			version = "ENG";
 			vars.game = 0;
 			break;
 		case "448496fd1e52805b802a5d1160f023fe": // ENG ze2.exe md5 hash
