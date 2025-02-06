@@ -196,11 +196,11 @@ start // gamestart goes from something (usually 315-321ish) to 4 if we don't cre
 	if (vars.game == 0) {
 		vars.category = 0;
 		vars.oproom = false;
+		vars.numEndings = 0;
 		if (settings["ze1Full"] && (current.gamestart == 4 || current.gamestart == 5) && current.gamestart != old.gamestart && old.gamestart > 0) { // last condition prevents starting the timer at game boot
 			//vars.numRoomsEscaped = 0;
 			//vars.DebugOutput("gamestart: "+current.gamestart+"; "+old.gamestart);
 			vars.category = 1;
-			vars.numEndings = 0;
 			return true;
 		}
 
@@ -292,7 +292,7 @@ split
 		// ----------------
 		if (vars.category == 2 || (vars.category == 0 && settings["ze1AllEscapes"])) {
 			// Split once we're back on the menu
-			if ((current.in_room != old.in_room && current.in_room == 0) || (current.in_room_alt != old.in_room_alt && current.in_room_alt == 65536)) {
+			if (current.in_room_alt != old.in_room_alt && current.in_room_alt == 65536) {
 				return true;
 			}
 		}
